@@ -1,0 +1,33 @@
+.Nav-container {
+    display: flex;
+    padding: 0.75rem;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    border-color: #991B1B;
+    background-color: #1A4196;
+}
+
+.Img-nav {
+    width: 100%;
+    margin-top: -5px;
+}
+
+.Nav-firstIcon {
+    margin-left: 2rem;
+    width: 8rem;
+    height: 4rem;
+}
+
+.Nav-2ndcontainer {
+    display: flex; 
+margin-right: 2rem; 
+justify-content: space-around; 
+width: 25%; 
+}
+
+.Nav-2ndcontainer p {
+    color: #fff;
+    text-decoration: none;
+    font-size: 15px;
+}
