@@ -5,6 +5,9 @@
     margin: 0;
     padding: 0;
 }
+.NavBar-responsive {
+    display: none;
+}
 .header-princ {
     height: auto;
     width: auto;
@@ -55,6 +58,10 @@ margin-right: 300px;
     flex-direction: column;
     align-items: center;
 }
+.header .MuiDataGrid-colCellTitleContainer {
+    background-color: orange;
+    color: white;
+  }
 
 
 @media screen and (max-width: 768px) {
@@ -69,6 +76,12 @@ margin-right: 300px;
         width: 400px;
         height: auto;
         
+    }
+    .NavBar-home {
+        display: none;
+    }
+    .NavBar-responsive {
+        display: inline;
     }
     .post-form {
         padding-left: 1.5rem;

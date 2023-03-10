@@ -10,7 +10,7 @@ export const GET_USER_RESERVATIONS = 'GET_USER_RESERVATIONS'
 
 export function signUp (obj) {
   return (dispatch) => {
-    toast.promise(axios.post('http://localhost:3001/api/user/signup', obj), {
+    toast.promise(axios.post('https://pethotel-production.up.railway.app/api/user/signup', obj), {
       pending: 'Cargando...',
       success: 'Usuario registrado con éxito'
     }).then((response) => {
@@ -47,7 +47,7 @@ export function signUp (obj) {
 export function signIn (obj) {
   return function (dispatch) {
     toast.promise(
-      axios.post('http://localhost:3001/api/user/signin', obj), {
+      axios.post('https://pethotel-production.up.railway.app/api/user/signin', obj), {
         pending: 'Iniciando sesión...',
         success: 'Sesión iniciada con éxito',
       })
@@ -64,6 +64,7 @@ export function signIn (obj) {
        }
       })
       .catch((err) => {
+        console.log(err)
         return toast.error(err.response.data.msg, {
           position: 'top-center',
           autoClose: 3000,
@@ -96,7 +97,7 @@ export function signOut (navigate = null) {
 export function sendOTPcode (obj, navigate = null) {
   return function (dispatch) {
     toast.promise(
-      axios.post('http://localhost:3001/api/user/sendOTP', obj), {
+      axios.post('https://pethotel-production.up.railway.app/api/user/sendOTP', obj), {
         pending: 'Enviando código...',
         success: 'Código enviado con éxito',
       })
@@ -130,7 +131,7 @@ export function sendOTPcode (obj, navigate = null) {
 export function recoverPassword (obj, navigate = null) {
   return function (dispatch) {
     toast.promise(
-      axios.post('http://localhost:3001/api/user/recovery', obj), {
+      axios.post('https://pethotel-production.up.railway.app/api/user/recovery', obj), {
         pending: 'Enviando código...',
         success: 'Contraseña cambiada con éxito',
       })
@@ -163,7 +164,7 @@ export function recoverPassword (obj, navigate = null) {
 
 export function getUserReservations (id) {
   return function (dispatch) {
-    axios.get('http://localhost:3001/api/reservation/client/' + id)
+    axios.get('https://pethotel-production.up.railway.app/api/reservation/client/' + id)
       .then((res) => {
         console.log(res.data.data)
         dispatch({
