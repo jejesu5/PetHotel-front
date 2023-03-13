@@ -1,0 +1,95 @@
+.adt {
+    font-size: 14px;
+}
+
+.text {
+    color: #009cff;
+}
+
+.text:hover {
+    color: #000000;
+    font-weight: bolder;
+}
+
+.tableContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    width: 90%;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: #a9a9a9 0 0 10px;
+}
+
+.navbarContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: 10px;
+    border-bottom: #a1a1a1 1px solid;
+}
+
+.navBarbutton {
+    color: #ff5900;
+    background-color: transparent;
+    border: 1px solid #ff5900;
+    margin: 5px;
+    padding: 5px;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.navBarbutton:hover {
+    color: #000000;
+    background-color: #ff5900;
+    border: 1px solid #ff5900;
+    font-weight: bolder;
+}
+
+.confirm {
+    color: #00cb03;
+    background-color: transparent;
+    border: 1px solid #00cb03;
+    margin: 5px;
+    width: 100px;
+}
+
+.cancel {
+    color: #ff0000;
+    background-color: transparent;
+    border: 1px solid #ff0000;
+    margin: 5px;
+    width: 100px;
+}
+
+.confirm:hover {
+    color: #000000;
+    background-color: #00cb03;
+    border: 1px solid #00cb03;
+    font-weight: bolder;
+}
+
+.cancel:hover {
+    color: #000000;
+    background-color: #ff0000;
+    border: 1px solid #ff0000;
+    font-weight: bolder;
+}
+
+.finalizar {
+    color: #00d0ff;
+    background-color: transparent;
+    border: 1px solid #00d0ff;
+    margin: 5px;
+    width: 100px;
+}
+
+.finalizar:hover {
+    color: #000000;
+    background-color: #00d0ff;
+    border: 1px solid #00d0ff;
+    font-weight: bolder;
+}

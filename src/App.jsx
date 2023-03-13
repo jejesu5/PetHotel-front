@@ -8,7 +8,8 @@ import ChangePassword from './pages/auth/Login/ChangePassword'
 import Home from './pages/Home/Home'
 import AllReservas from './pages/Reservas/AllReservas'
 import CrearReserva from './pages/Reservas/crearReserva'
-import AdminDashboard from './pages/admin/AdminDashboard'
+import AdminDashboardReservas from './pages/admin/AdminDashboardReservas.jsx'
+import AdminDashboardUsuarios from "./pages/admin/AdminDashboardUsuarios.jsx";
 
 function App () {
   return (
@@ -20,7 +21,8 @@ function App () {
       <Route path='/create' element={<CrearReserva />} />
       <Route path='/forgotpassword' element={<RecoveryPassword />} />
       <Route path='/changepassword' element={<ChangePassword />} />
-      <Route path='/admin/dashboard' element={<AdminDashboard />} />
+      <Route path='/admin/dashboard/reservas' element={<AdminDashboardReservas />} />
+      <Route path='/admin/dashboard/usuarios' element={<AdminDashboardUsuarios />} />
     </Routes>
   )
 }
