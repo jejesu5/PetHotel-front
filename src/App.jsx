@@ -8,18 +8,19 @@ import ChangePassword from './pages/auth/Login/ChangePassword'
 import Home from './pages/Home/Home'
 import AllReservas from './pages/Reservas/AllReservas'
 import CrearReserva from './pages/Reservas/crearReserva'
-
+import AdminDashboard from './pages/admin/AdminDashboard'
 
 function App () {
   return (
     <Routes>
-       <Route path='/' element={<Login />} /> 
+       <Route path='/' element={<Login />} />
        <Route path='/home' element={<Home />} />
       <Route path='/register' element={<RegisterNew />} />
       <Route path='/all' element={<AllReservas />} />
       <Route path='/create' element={<CrearReserva />} />
       <Route path='/forgotpassword' element={<RecoveryPassword />} />
       <Route path='/changepassword' element={<ChangePassword />} />
+      <Route path='/admin/dashboard' element={<AdminDashboard />} />
     </Routes>
   )
 }

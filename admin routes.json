@@ -1,0 +1,125 @@
+[
+    {
+        "name": "traer todas reservas",
+        "route": {
+            "method": "GET",
+            "url": "https://pethotel-production.up.railway.app/api/reservation/"
+        },
+        "query": {
+            "skip": "numero de paginacion",
+            "limit": "numero de elementos por pagina"
+        }
+    },
+    {
+        "name": "traer reserva por id de usuario",
+        "route": {
+            "method": "GET",
+            "url": "https://pethotel-production.up.railway.app/api/reservation/client/:id"
+        },
+        "params": {
+            "id": "id del usuario"
+        }
+    },
+    {
+        "name": "traer una reserva",
+        "route": {
+            "method": "GET",
+            "url": "https://pethotel-production.up.railway.app/api/reservation/:id"
+        },
+        "params": {
+            "id": "id de la reserva"
+        }
+    },
+    {
+        "name": "actualizar una reserva",
+        "route": {
+            "method": "UPDATE",
+            "url": "https://pethotel-production.up.railway.app/api/reservation/:id"
+        },
+        "params": {
+            "id": "id de la reserva"
+        }
+    },
+    {
+        "name": "eliminar una reserva",
+        "route": {
+            "method": "DELETE",
+            "url": "https://pethotel-production.up.railway.app/api/reservation/:id"
+        },
+        "params": {
+            "id": "id de la reserva"
+        }
+    },
+    {
+        "name": "confirmar una reserva",
+        "route": {
+            "method": "POST",
+            "url": "https://pethotel-production.up.railway.app/api/reservation/confirm/:id"
+        },
+        "params": {
+            "id": "id de la reserva"
+        }
+    },
+    {
+        "name": "cancelar una reserva",
+        "route": {
+            "method": "POST",
+            "url": "https://pethotel-production.up.railway.app/api/reservation/cancel/:id"
+        },
+        "params": {
+            "id": "id de la reserva"
+        }
+    },
+    {
+        "name": "finalizar una reserva",
+        "route": {
+            "method": "POST",
+            "url": "https://pethotel-production.up.railway.app/api/reservation/complete/:id"
+        },
+        "params": {
+            "id": "id de la reserva"
+        }
+    },
+    {
+        "name": "traer todos los usuarios",
+        "route": {
+            "method": "GET",
+            "url": "https://pethotel-production.up.railway.app/api/user/"
+        },
+        "query": {
+            "skip": "numero de paginacion",
+            "limit": "numero de elementos por pagina"
+        }
+    },
+    {
+        "name": "traer un usuario",
+        "route": {
+            "method": "GET",
+            "url": "https://pethotel-production.up.railway.app/api/user/:id"
+        },
+        "params": {
+            "id": "id de la reserva"
+        }
+    },
+    {
+        "name": "actualizar un usuario",
+        "route": {
+            "method": "UPDATE",
+            "url": "https://pethotel-production.up.railway.app/api/user/:id"
+        },
+        "params": {
+            "id": "id de la reserva"
+        }
+    },
+    {
+        "name": "eliminar un usuario",
+        "route": {
+            "method": "DELETE",
+            "url": "https://pethotel-production.up.railway.app/api/user/:id"
+        },
+        "params": {
+            "id": "id de la reserva"
+        }
+    }
+    
+]
