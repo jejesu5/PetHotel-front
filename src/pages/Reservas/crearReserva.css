@@ -64,8 +64,8 @@
   margin-top: 20px;
 }
 .eye-password {
-  width: 20%; 
-cursor: pointer; 
+  width: 20%;
+cursor: pointer;
 color: #B8B8B8;
 height: 40px;
 margin-top: 10px;
@@ -137,4 +137,8 @@ margin-top: 10px;
   .form :where(.gender-option, .gender) {
     row-gap: 15px;
   }
+}
+
+.SELECTOR {
+  margin-top: 10px;
 }

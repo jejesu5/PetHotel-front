@@ -14,8 +14,8 @@ import AdminDashboardUsuarios from "./pages/admin/AdminDashboardUsuarios.jsx";
 function App () {
   return (
     <Routes>
-       <Route path='/' element={<Login />} />
-       <Route path='/home' element={<Home />} />
+      <Route path='/' element={<Login />} />
+      <Route path='/home' element={<Home />} />
       <Route path='/register' element={<RegisterNew />} />
       <Route path='/all' element={<AllReservas />} />
       <Route path='/create' element={<CrearReserva />} />
@@ -28,4 +28,3 @@ function App () {
 }
 
 export default App
-
