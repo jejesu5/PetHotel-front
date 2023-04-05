@@ -6,7 +6,7 @@ import NavBarHome from '../../components/navbar/NavBarHome'
 
 import './crearReserva.css'
 import Select from "react-select";
-import 'react-calendar/dist/Calendar.css';
+/* import 'react-calendar/dist/Calendar.css'; */
 import axios from "axios";
 
 
