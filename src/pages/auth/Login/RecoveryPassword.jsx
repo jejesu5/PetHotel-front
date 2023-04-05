@@ -4,7 +4,7 @@ import { useNavigate, useLocation } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify'
 import NavLogout from '../../../components/navbar/NavLogout'
 import { sendOTPcode } from '../../../Redux/Actions/index'
-import OtpInput from 'react-otp-input'
+/* import OtpInput from 'react-otp-input' */
 
 export default function RecoveryPassword () {
     const dispatch = useDispatch()

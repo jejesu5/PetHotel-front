@@ -1,280 +1,384 @@
-import React, { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { ToastContainer, toast } from 'react-toastify'
+import React, {useState} from 'react'
+import {useSelector} from 'react-redux'
+import {toast, ToastContainer} from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import NavBarHome from '../../components/navbar/NavBarHome'
-import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/solid'
-/* import Footer from '../../components/footer/footer' */
-import './crearReserva.css'
 
-function validate (input) {
-  const errors = {}
-  if (!input.name) {
-    errors.name = 'First Name is required'
-  } else if (input.name.trim() === '') {
-    errors.name = 'Name may not be empty'
-  }
-  if (!input.lastName) {
-    errors.lastName = 'Last Name is required'
-  } else if (input.lastName.trim() === '') {
-    errors.firstName = 'Name may not be empty'
-  }
-  if (!input.email) {
-    errors.email = 'Email is required'
-  } else if (!/\S+@\S+\.\S+/.test(input.email)) {
-    errors.email = 'Email is invalid'
-  }
-  if (!input.idNumber) {
-    errors.idNumber = 'El numero de documento es requerido'
-  } else if (input.idNumber.length < 3) {
-    errors.idNumber = 'El numero de documento es invalido'
-  }
-  if (!input.phoneNumber) {
-    errors.phoneNumber = 'El numero de telefono es requerido'
-  } else if (/^\d{5,}$/.test(input.phoneNumber) === false) {
-    errors.phoneNumber = 'El número de teléfono es invalido'
-  }
-  if (!input.password) {
-    errors.password = 'Password is required'
-  } else if (input.password.length < 5) {
-    errors.password = 'La contraseña debe tener al menos 5 caracteres'
-  } else if (!/\d/.test(input.password)){
-    errors.password = 'La contraseña debe tener al menos un número'
-  } else if (!/[a-zA-Z]/.test(input.password)){
-    errors.password = 'La contraseña debe tener al menos una letra'
-  }
-  if (!input.repeatPassword) {
-    errors.repeatPassword = 'Debe confirmar la contraseña'
-  } else if (input.password !== input.repeatPassword) {
-    errors.repeatPassword = 'Las contraseñas no coinciden'
-  }
-  return errors
-}
-export default function CrearReserva () {
-  const dispatch = useDispatch()
+import './crearReserva.css'
+import Select from "react-select";
+/* import 'react-calendar/dist/Calendar.css'; */
+import axios from "axios";
+
+
+export default function CrearReserva() {
   const user = useSelector(state => state.user)
-  const [handleID, setHandleID] = useState({
-    idType: '',
-    number: '',
-  })
- console.log(handleID)
-  const [handleAddress, setHandleAddress] = useState({
-    address: '',
-    address_2: '',
-    city: '',
-    localidad: '',
-  })
-  console.log(handleAddress)
-  const [input, setInput] = useState({
-    service_type: '',
-    start_date: '',
-    end_date: '',
+
+  const [form, setForm] = useState({
+    service_type: "",
+    start_date: "",
+    end_date: "",
     pickUp: false,
-    guarderia_dias: [],
-    pets_count: '',
+    pets_count: "",
     pets: [],
-    address_pickup: '',
     spa_services: [],
-    description: '',
+    guarderia_dias: [],
+    description: "",
     client: user.id
   })
 
-  const [error, setError] = useState({})
-  const [showPassword, setShowPassword] = useState(false)
-  console.log(input)
-  
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    console.log(error)
-    if (Object.keys(error).length > 0) {
-      return toast.error(Object.values(error).join(', '), {
-        position: 'top-center',
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined
+  const changeServiceType = (e) => {
+    setForm({
+      service_type: e.target.value,
+      start_date: "",
+      end_date: "",
+      pickUp: false,
+      pets_count: "",
+      pets: [],
+      spa_services: [],
+      guarderia_dias: [],
+      description: "",
+      client: user.id
+    })
+    return console.log(form)
+  }
+  const changePickUp = (e) => {
+    if (e.target.value === 'si') {
+      setForm({
+        ...form,
+        pickUp: true
       })
     }
-    dispatch(signUp(input))
-  /*   axios.post('http://localhost:3001/api/user/signup', input)
-    .then(res => {
-      console.log(res)
+    if (e.target.value === 'no') {
+      setForm({
+        ...form,
+        pickUp: false
+      })
     }
-    )
-    .catch(err => {
-      console.log(err.message)
-    }) */
+    return console.log(form)
   }
 
-  const handleInputChange = (e) => {
-    setError(validate({
-      ...input,
-      [e.target.name]: e.target.value
-    }))
-    setInput({
-      ...input,
-      [e.target.name]: e.target.value
+  const changeStartDate = (e) => {
+    setForm({
+      ...form,
+      start_date: e.target.value
     })
+    return console.log(form)
   }
 
-  const handleAddressChange = (e) => {
-    setHandleAddress({
-      ...handleAddress,
-      [e.target.name]: e.target.value
-  })
-}
-
-const SaveAddress = () => {
-  if(handleAddress.address_2 === ''){
-    setInput({
-      ...input,
-      address: `${handleAddress?.address}, ${handleAddress?.localidad}, ${handleAddress?.city}`
+  const changeEndDate = (e) => {
+    setForm({
+      ...form,
+      end_date: e.target.value
     })
-  } else {
-    setInput({
-      ...input,
-      address: `${handleAddress?.address}, ${handleAddress?.address_2}, ${handleAddress?.localidad}, ${handleAddress?.city}`
-    })
+    return console.log(form)
   }
-}
 
-const handleIDChange = (e) => {
-  setHandleID({
-    ...handleID,
-    [e.target.name]: e.target.value
-  })
-  setInput({
-    ...input,
-    idNumber: `${handleID.idType}${handleID.number}`
-  })
-}
+  const changeDescription = (e) => {
+    setForm({
+      ...form,
+      description: e.target.value
+    })
+    return console.log(form)
+  }
+
+  const changePetsCount = (e) => {
+
+    form.pets = []
+
+    for (let i = 0; i < e.target.value; i++) {
+      form.pets.push(
+        {
+          pets_type: '',
+          pets_race: '',
+          pets_size: '',
+          pets_name: '',
+          pets_age: ''
+        }
+      )
+    }
+
+    const stringValue = e.target.value.toString()
+    setForm({
+      ...form,
+      pets_count: stringValue
+    })
+    return console.log(form)
+  }
+  const spaServices = [
+    {value: 'peluqueria', label: 'Peluquería'},
+    {value: 'baño basico', label: 'Baño Básico'},
+    {value: 'baño especial', label: 'Baño Especial'},
+    {value: 'corte de uñas', label: 'Corte de uñas'},
+    {value: 'baño de oidos', label: 'Baño de oídos'},
+    {value: 'enjuague bucal', label: 'Enjuague bucal'},
+  ]
+
+  const dias = [
+    {value: 'lunes', label: 'Lunes'},
+    {value: 'martes', label: 'Martes'},
+    {value: 'miercoles', label: 'Miercoles'},
+    {value: 'jueves', label: 'Jueves'},
+    {value: 'viernes', label: 'Viernes'},
+    {value: 'sabado', label: 'Sabado'},
+    {value: 'domingo', label: 'Domingo'},
+  ]
+
+  const submit = (e) => {
+    e.preventDefault()
+    axios.post('https://pethotel-production.up.railway.app/api/reservation', form)
+      .then(res => {
+        console.log(res)
+        toast('Reserva creada correctamente', {
+          type: 'success',
+          position: 'top-center',
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+
+        })
+      })
+      .catch(err => {
+        console.log(err)
+        toast('Error al crear la reserva', {
+          type: 'error',
+          position: 'top-center',
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        })
+      })
+  }
+
 
   return (
-        <>
-        <ToastContainer/>
-        <NavBarHome />
-        <div className='Principal-crear-reserva'>
+    <>
+      <ToastContainer/>
+      <NavBarHome/>
+      <div className='Principal-crear-reserva'>
         <section className="container">
-      <header>Crear Reserva</header>
-      <form onSubmit={(e) => handleSubmit(e)} className="form">
-      <div className = 'input-box'>
-            <label>Tipo de servicio deseado</label>
-          <div className="select-box">
-              <select name="city" onChange={handleAddressChange}>
-                <option hidden>Selecciona</option>
-                <option value="hotel">Hotel</option>
-                <option value="guarderia">Guarderia</option>
-                <option value="spa">SPA</option>
-              </select>
-            </div>
-            </div>
-        <div className="column">
-        <div className="input-box">
-          <label>Nombre</label>
-          <input type="text" placeholder="Ingrese un nombre" required value={input.name} name="name" onChange={handleInputChange}/>
-        </div>
-        <div className="input-box">
-          <label>Apellido</label>
-          <input type="text" placeholder="Ingrese un Apellido" required value={input.lastName} name='lastName' onChange={handleInputChange}/>
-        </div>
-        </div>
+          <header>Crear Reserva</header>
+          <form onSubmit={(e) => submit(e)} className="form">
 
-        <div className="input-box">
-          <label>Correo electronico</label>
-          <input type="text" placeholder="Ingrese una dirección de correo" required value={input.email} name="email" onChange={handleInputChange}/>
-        </div>
-        <div className="input-box">
-          <label>Número de documento</label>
-       <div className='column'>
-        <div className="select-box-small">
-              <select onChange={handleIDChange} name="idType">
-                <option hidden>Tipo</option>
-                <option value="CC">CC</option>
-                <option value="CE">CE</option>
-                <option value="NIT">NIT</option>
-              </select>
+            <div className='input-box'>
+              <label>Tipo de servicio deseado</label>
+              <div className="select-box">
+                <select name="service_type" onChange={(e) => changeServiceType(e)}>
+                  <option hidden>Selecciona</option>
+                  <option value="hotel">Hotel</option>
+                  <option value="guarderia">Guarderia</option>
+                  <option value="spa">SPA</option>
+                </select>
+              </div>
             </div>
-          <input type="text" placeholder="Ingrese su número de documento" required name="number" value={handleID.number} onChange={handleIDChange}/>
-          </div> 
-        </div>
-        <div className="input-box">
-            <label>Número de telefono</label>
-            <input type="number" placeholder="Ingrese su numero de telefono" required name="phoneNumber" value={input.phoneNumber} onChange={handleInputChange}/>
-          </div>
-        <div className="input-box address">
-          <label>Dirección</label>
-          <input type="text" placeholder="Ingresa tu dirección" required name="address" value={handleAddress.address} onChange={handleAddressChange}/>
-          <input type="text" placeholder="Información adicional" name='address_2' value={handleAddress.address_2} onChange={handleAddressChange}/>
-          <div className="column">
-            <div className = 'input-box'>
-            <label>Ciudad</label>
-          <div className="select-box">
-              <select name="city" onChange={handleAddressChange}>
-                <option hidden>Selecciona</option>
-                <option value="Bogota">Bogotá</option>
-              </select>
+
+            <div className="input-box">
+              <label>Pickup</label>
+              <div className="select-box">
+                <select name="pickUp" onChange={(e) => changePickUp(e)}>
+                  <option hidden>Selecciona</option>
+                  <option value={'si'}>Si</option>
+                  <option value={'no'}>No</option>
+                </select>
+              </div>
             </div>
+
+            {form.service_type === 'hotel' || form.service_type === 'spa' ?
+              <>
+                <div className="input-box">
+                  <label>Día de ingreso</label>
+
+                  <input type="date" placeholder="Ingrese su numero de telefono" required name="start_date"
+                         value={form.start_date} onChange={(e) => changeStartDate(e)}/>
+                </div>
+
+                <div className="input-box">
+                  <label>Día de egreso</label>
+                  <input type="date" placeholder="Ingrese su numero de telefono" required name="end_date"
+                         value={form.end_date} onChange={(e) => changeEndDate(e)}/>
+                </div>
+
+
+                <div className="input-box" style={{display: 'flex', flexDirection: 'column'}}>
+                  <label>Descripción</label>
+                  <textarea style={{
+                    maxWidth: '100%',
+                    minWidth: '100%',
+                    minHeight: '150px',
+                    borderRadius: '5px',
+                    border: '1px solid #ccc',
+                    padding: '10px',
+                    fontSize: '16px',
+                    outline: 'none'
+                  }}
+                            placeholder="Ingrese una descripción adicional" value={form.description}
+                            name='lastName'
+                            onChange={(e) => changeDescription(e)}/>
+                </div>
+              </>
+              : null}
+            {
+              form.service_type === 'spa' ?
+                <div>
+                  <label>Servicios de SPA</label>
+                  <Select
+                    name="guarderia_dias"
+                    className={'SELECTOR'}
+                    isMulti
+                    options={spaServices}
+                    onChange={(e) => {
+                      setForm({
+                        ...form,
+                        spa_services: e.map((item) => {
+                          return item.value
+                        })
+                      })
+                    }}
+                  />
+                </div>
+                : null
+            }
+            {
+              form.service_type === 'guarderia' ?
+                <div style={{
+                  marginTop: '20px',
+                }}>
+                  <label>Días de guardería</label>
+                  <Select
+                    className={'SELECTOR'}
+                    name="spa_services"
+                    isMulti
+                    options={dias}
+                    onChange={(e) => {
+                      setForm({
+                        ...form,
+                        guarderia_dias: e.map((item) => {
+                          return item.value
+                        })
+                      })
+                    }}
+                  />
+                </div>
+                : null
+            }
+            <div className='input-box'>
+              <label>Cantidad de mascotas</label>
+              <div className="select-box">
+                <select name="city" onChange={(e) => changePetsCount(e)}>
+                  <option hidden>Selecciona</option>
+                  <option value={1}>1 Mascota</option>
+                  <option value={2}>2 Mascotas</option>
+                  <option value={3}>3 Mascotas</option>
+                  <option value={4}>4 Mascotas</option>
+                  <option value={5}>5 Mascotas</option>
+                  <option value={6}>6 Mascotas</option>
+                  <option value={7}>7 Mascotas</option>
+                  <option value={8}>8 Mascotas</option>
+                  <option value={9}>9 Mascotas</option>
+                  <option value={10}>10 Mascotas</option>
+                </select>
+              </div>
             </div>
-            <div className = 'input-box'>
-            <label>Localidad</label>
-          <div className="select-box">
-              <select name="localidad" onChange={handleAddressChange}>
-                <option hidden>Selecciona</option>
-                <option value="Usaquen">Usaquén</option>
-                <option value="Chapinero">Chapinero</option>
-                <option value="Santa Fe">Santa Fe</option>
-                <option value="San Cristobal">San Cristóbal</option>
-                <option value="Usme">Usme</option>
-                <option value="Tunjuelito">Tunjuelito</option>
-                <option value="Bosa">Bosa</option>
-                <option value="Kennedy">Kennedy</option>
-                <option value="Fontibon">Fontibón</option>
-                <option value="Engativa">Engativá</option>
-                <option value="Suba">Suba</option>
-                <option value="Barrios Unidos">Barrios Unidos</option>
-                <option value="Teusaquillo">Teusaquillo</option>
-                <option value="Los Martires">Los Mártires</option>
-                <option value="Antonio Nariño">Antonio Nariño</option>
-                <option value="Puente Aranda">Puente Aranda</option>
-                <option value="La Candelaria">La Candelaria</option>
-                <option value="Rafael Uribe Uribe">Rafael Uribe Uribe</option>
-                <option value="Ciudad Bolivar">Ciudad Bolívar</option>
-                <option value="Sumapaz">Sumapaz</option>
-              </select>
-            </div>
-            </div>
-          </div>
-        </div>
-        <div className="input-box">
-          <label>Contraseña</label>
-          <div className='column'>
-          <input type={showPassword ? 'text' : 'password'} placeholder="Ingrese una contraseña" required value={input.password} name="password" onChange={handleInputChange}/>
-          {!showPassword
-              ? <EyeIcon onClick={() => setShowPassword(!showPassword)}
-                                      className={'eye-password'}/>
-              : <EyeSlashIcon onClick={() => setShowPassword(!showPassword)}
-                            className={'eye-password'}
-                            />}
-        </div>
-        </div>
-        <div className="input-box">
-          <label>Confirma la Contraseña</label>
-          <div className='column'>
-          <input type={showPassword ? 'text' : 'password'} placeholder="Confirme la contraseña" required value={input.repeatPassword} name="repeatPassword" onChange={handleInputChange}/>
-          {!showPassword
-              ? <EyeIcon onClick={() => setShowPassword(!showPassword)}
-                                      className={'eye-password'}/>
-              : <EyeSlashIcon onClick={() => setShowPassword(!showPassword)}
-                            className={'eye-password'}
-                            />}
-          </div>
-        </div>
-        <input type="submit" value="Enviar" className='button-submit' onClick={SaveAddress}/>
-      </form>
-    </section>
-    </div>
-        </>
+
+            {form.pets.map((pet, index) => {
+              return (
+                <div key={index}>
+
+                  <h4>Mascota {index + 1}</h4>
+
+                  <div className='input-box'>
+                    <label>Tipo</label>
+                    <div className="select-box">
+                      <select name="pets_type" onChange={
+                        (e) => {
+                          form.pets[index].pets_type = e.target.value
+                          setForm({
+                            ...form
+                          })
+                          return console.log(form)
+                        }
+                      }>
+                        <option hidden>Selecciona</option>
+                        <option value={'perro'}>Perro</option>
+                        <option value={'gato'}>Gato</option>
+                        <option value={'otro'}>Otro</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div className="input-box">
+                    <label>Raza</label>
+                    <input type="text" placeholder="Ingrese la raza de su mascota"
+                           value={form.pets[index].pets_race}
+                           required name="pets_race" onChange={
+                      (e) => {
+                        form.pets[index].pets_race = e.target.value
+                        setForm({
+                          ...form
+                        })
+                        return console.log(form)
+                      }
+                    }/>
+                  </div>
+
+                  <div className='input-box'>
+                    <label>Tamaño</label>
+                    <div className="select-box">
+                      <select name="pets_size" onChange={
+                        (e) => {
+                          form.pets[index].pets_size = e.target.value
+                          setForm({
+                            ...form
+                          })
+                          return console.log(form)
+                        }
+                      }>
+                        <option hidden>Selecciona</option>
+                        <option value={'pequeño'}>Pequeño</option>
+                        <option value={'mediano'}>Mediano</option>
+                        <option value={'grande'}>Grande</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div className="input-box">
+                    <label>Nombre</label>
+                    <input type="text" placeholder="Ingrese el nombre de su mascota" required name="pets_name"
+                           onChange={
+                             (e) => {
+                               form.pets[index].pets_name = e.target.value
+                               setForm({
+                                 ...form
+                               })
+                               return console.log(form)
+                             }
+                           }/>
+                  </div>
+
+                  <div className="input-box">
+                    <label>Edad</label>
+                    <input type="text" placeholder="Ingrese la edad de su mascota" required name="pets_age"
+                           onChange={
+                             (e) => {
+                               form.pets[index].pets_age = e.target.value
+                               setForm({
+                                 ...form
+                               })
+                               return console.log(form)
+                             }
+                           }/>
+                  </div>
+
+                </div>
+              )
+            })}
+            <input type="submit" value="Enviar" className='button-submit'/>
+          </form>
+        </section>
+      </div>
+    </>
   )
 }

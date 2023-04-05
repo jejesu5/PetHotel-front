@@ -60,6 +60,7 @@ export default function ChangePassword () {
               numInputs={4}
               isInputNum={true}
               inputStyle={{ backgroundColor: '#F7F8FA', width: '50px', height: '50px', borderRadius: '10px', border: 'none', fontSize: '20px', textAlign: 'center', color: 'black', marginRight: '10px' }}
+              renderInput={(props) => <input {...props} required/>}
             />
             </div>
         <div className="input-box">
