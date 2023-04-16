@@ -7,7 +7,8 @@ import './index.css'
 import { BrowserRouter } from 'react-router-dom'
 import axios from 'axios'
 
-axios.defaults.baseURL = 'https://pethotel-production.up.railway.app';
+
+axios.defaults.baseURL = import.meta.env.VITE_APP_API_URL;
 
 ReactDOM.createRoot(document.getElementById('root')).render(
     <Provider store={store}>

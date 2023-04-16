@@ -59,7 +59,7 @@ export function signIn (obj) {
         })
         localStorage.setItem('user', JSON.stringify(res.data.user))
        if(res.data.user.role === 'admin') {
-         window.location.href = '/admin'
+         window.location.href = '/admin/dashboard/reservas'
        } else {
          window.location.href = '/home'
        }
