@@ -19,11 +19,11 @@ export default function NavBarHome () {
             </div>
 
             <div className="Nav-2ndcontainer" >
+            <Link to='/home'>
+            <p>Home</p>
+            </Link>
             <Link to='/create'>
             <p>Reservar</p>
-            </Link>
-            <Link to='/stream'>
-            <p>Stream</p>
             </Link>
             <Link to='/profile'>
             <p>Perfil</p>

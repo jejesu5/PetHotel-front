@@ -7,6 +7,7 @@ export const RECOVER_PASSWORD = 'RECOVER_PASSWORD'
 export const SEND_OTP_CODE = 'SEND_OTP_CODE'
 export const VERIFY_EMAIL = 'VERIFY_EMAIL'
 export const GET_USER_RESERVATIONS = 'GET_USER_RESERVATIONS'
+export const GET_USER_GUARDERIA = 'GET_USER_GUARDERIA'
 
 export function signUp (obj) {
   return (dispatch) => {
@@ -169,6 +170,30 @@ export function getUserReservations (id) {
         console.log(res.data.data)
         dispatch({
           type: GET_USER_RESERVATIONS,
+          payload: res.data.data
+        })
+      })
+      .catch((err) => {
+        return toast.error(err.response.data.msg, {
+          position: 'top-center',
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined
+        })
+      })
+  }
+}
+
+export function getUserGuarderia (id) {
+  return function (dispatch) {
+    axios.get('/api/reservation/guarderia/' + id)
+      .then((res) => {
+        console.log(res.data.data)
+        dispatch({
+          type: GET_USER_GUARDERIA,
           payload: res.data.data
         })
       })

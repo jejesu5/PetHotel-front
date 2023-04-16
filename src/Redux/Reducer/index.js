@@ -1,9 +1,10 @@
-import { SIGN_IN, SIGN_UP, SEND_OTP_CODE, RECOVER_PASSWORD, VERIFY_EMAIL, GET_USER_RESERVATIONS, SIGN_OUT } from '../Actions/index'
+import { SIGN_IN, SIGN_UP, SEND_OTP_CODE, RECOVER_PASSWORD, VERIFY_EMAIL, GET_USER_RESERVATIONS, GET_USER_GUARDERIA, SIGN_OUT } from '../Actions/index'
 const userLocal = JSON.parse(localStorage.getItem('user'))
 
 const initialState = {
   user: userLocal || {},
   reservationsByuser: [],
+  guarderiaByuser: [],
   allReservations: []
 }
 export default function rootReducer (state = initialState, action) {
@@ -30,6 +31,12 @@ export default function rootReducer (state = initialState, action) {
       return {
         ...state,
         reservationsByuser: action.payload
+      }
+    }
+    case GET_USER_GUARDERIA:{
+      return {
+        ...state,
+        guarderiaByuser: action.payload
       }
     }
     case SEND_OTP_CODE:{

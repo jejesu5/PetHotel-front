@@ -11,7 +11,7 @@ export default function AdminDashboardUsuarios() {
 
   useEffect(() => {
     setLoading(true)
-    axios.get(`https://pethotel-production.up.railway.app/api/user/`,)
+    axios.get(`/api/user/`,)
       .then(res => {
         console.log(res.data.data)
         setUsers(res.data.data)
@@ -20,10 +20,10 @@ export default function AdminDashboardUsuarios() {
   }, [])
 
   const eliminarUser = (id) => {
-    axios.delete(`https://pethotel-production.up.railway.app/api/user/${id}`)
+    axios.delete(`/api/user/${id}`)
       .then(()=> {
         setLoading(true)
-        axios.get(`https://pethotel-production.up.railway.app/api/user/`,)
+        axios.get(`/api/user/`,)
           .then(res => {
             setUsers(res.data.data)
             setLoading(false)

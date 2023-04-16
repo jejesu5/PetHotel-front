@@ -14,7 +14,7 @@ export default function AdminDashboardUsuarios() {
 
   useEffect(() => {
     setLoading(true)
-    axios.get(`https://pethotel-production.up.railway.app/api/reservation`,)
+    axios.get(`/api/reservation`,)
       .then(res => {
         console.log(res.data.data)
         setReservations(res.data.data)
@@ -23,13 +23,13 @@ export default function AdminDashboardUsuarios() {
   }, [])
 
   const confirmReservation = (id) => {
-    axios.post(`https://pethotel-production.up.railway.app/api/reservation/confirm/${id}`)
+    axios.post(`/api/reservation/confirm/${id}`)
       .then(res => {
         console.log(res)
       })
       .then(() => {
         setLoading(true)
-        axios.get(`https://pethotel-production.up.railway.app/api/reservation}`,)
+        axios.get(`/api/reservation}`,)
           .then(res => {
             console.log(res.data.data)
             setReservations(res.data.data)
@@ -39,13 +39,13 @@ export default function AdminDashboardUsuarios() {
   }
 
   const cancelReservation = (id) => {
-    axios.post(`https://pethotel-production.up.railway.app/api/reservation/cancel/${id}`)
+    axios.post(`/api/reservation/cancel/${id}`)
       .then(res => {
         console.log(res)
       })
       .then(() => {
         setLoading(true)
-        axios.get(`https://pethotel-production.up.railway.app/api/reservation`,)
+        axios.get(`/api/reservation`,)
           .then(res => {
             console.log(res.data.data)
             setReservations(res.data.data)
@@ -55,13 +55,13 @@ export default function AdminDashboardUsuarios() {
   }
 
   const finaliceReservation = (id) => {
-    axios.post(`https://pethotel-production.up.railway.app/api/reservation/complete/${id}`)
+    axios.post(`/api/reservation/complete/${id}`)
       .then(res => {
         console.log(res)
       })
       .then(() => {
         setLoading(true)
-        axios.get(`https://pethotel-production.up.railway.app/api/reservation`,)
+        axios.get(`/api/reservation`,)
           .then(res => {
             console.log(res.data.data)
             setReservations(res.data.data)
