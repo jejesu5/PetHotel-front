@@ -24,7 +24,7 @@ let buttonText = {
 	"Finalizada": "Ver detalle"
 }
 
-export default function Card({id, service_type, start_date, end_date, pets_count, pickup, status}){
+export default function CardGuard({id, service_type, start_date, end_date, pets_count, pickup, status}){
 	console.log(formatDate(start_date))
     return(
         <div className="card">
@@ -37,10 +37,10 @@ export default function Card({id, service_type, start_date, end_date, pets_count
 			</div>
 		</div>
 		<div class="course-info">
-			<h6>Reserva #{id}</h6>
+			<h6>Servicio Mensual</h6>
 			<h1>{service_type}</h1>
-			<h5>Fecha de entrada: {formatDate(start_date)}</h5>
-            <h5>Fecha de salida: {formatDate(end_date)}</h5>
+			<h5>Inicio del Servicio: {formatDate(start_date)}</h5>
+            <h5>Fin del Servicio: {formatDate(end_date)}</h5>
             <h5>Numero de mascotas: {pets_count}</h5>
             <h5>Pick up: {pickup === true ? 'SI' : 'NO'}</h5>
 			{ <button class="btn">{buttonText[status]}</button>}

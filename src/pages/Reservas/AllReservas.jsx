@@ -1,6 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import NavLogout from "../../components/navbar/NavLogout";
+import NavBarHome from "../../components/navbar/NavBarHome";
 import { useDispatch, useSelector } from "react-redux";
 import { DataGrid } from '@mui/x-data-grid';
 import Box from '@mui/material/Box';
@@ -105,7 +106,7 @@ export default function AllReservas() {
       
       return (
         <div className="home-background">
-        <NavLogout/>
+        <NavBarHome/>
      <div className="post-form">
         <div className="post-form-title" style={{marginTop: '60px'}}>
                 <h2>Todas las Reservas</h2>

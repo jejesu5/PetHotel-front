@@ -125,7 +125,7 @@ export default function CrearReserva() {
 
   const submit = (e) => {
     e.preventDefault()
-    axios.post('https://pethotel-production.up.railway.app/api/reservation', form)
+    axios.post('/api/reservation', form)
       .then(res => {
         console.log(res)
         toast('Reserva creada correctamente', {
@@ -138,6 +138,7 @@ export default function CrearReserva() {
           draggable: true,
 
         })
+        window.location.href = '/home'
       })
       .catch(err => {
         console.log(err)
